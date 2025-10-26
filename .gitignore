@@ -1,6 +1,5 @@
 # Credenciais e arquivos sensíveis
 *.json
-*.pdf
 .env
 .env.local
 .env.development.local
