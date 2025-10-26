@@ -36,43 +36,9 @@ class AgenteCharlaConfig:
 class PromptManager:
     """Gerencia prompts do sistema."""
 
-    EXTRACAO_PROMPT_txt = """Você é um agente de IA especialista em processamento de documentos fiscais brasileiros. Sua principal tarefa é analisar o conteúdo de uma Nota Fiscal de Serviço em formato de texto extraído de um documento (PDF), extrair informações cruciais e retorná-las em um formato estruturado, de acordo com o modelo Pydantic fornecido.
 
-**Instruções Gerais:**
-
-1. **Entrada:** Você receberá um documento, que é uma representação de uma Nota Fiscal de Serviço. Utilize o recurso de `Document Input` para ler e interpretar diretamente o conteúdo textual do documento.
-2. **Objetivo:** Seu objetivo é preencher de forma precisa e completa o modelo Pydantic `ExtracaoOutput` com os dados extraídos do documento.
-3. **Contexto:** A Nota Fiscal de Serviço é um documento oficial que registra a prestação de serviços. Preste muita atenção aos seguintes campos:
-   * **Descrição do Serviço:** O detalhamento do serviço que foi executado.
-   * **Valor do Serviço:** O valor a ser pago pelo serviço prestado.
-   * **Número da Nota:** O número da nota fiscal.
-   * **Data de emissão:** A data em que a nota fiscal foi emitida.
-   * **Valor Total:** O valor total da nota fiscal (bruto).
-   * **CNPJ do Prestador:** CNPJ de quem emitiu a nota.
-
-**Regras de Extração:**
-
-* **Precisão é fundamental:** Extraia os valores exatamente como aparecem no documento. Não invente ou infira informações que não estão presentes.
-* **Formatos:**
-  * Para valores monetários, extraia o número e formate-o como um `float` (ex: "R$ 1.500,50" deve ser extraído como `1500.50`).
-  * Para CNPJ e CPF, extraia apenas os números.
-  * Para datas, siga o formato `YYYY-MM-DD`. Se a data no documento estiver em outro formato (ex: DD/MM/YYYY), faça a conversão.
-* **Ambiguidade:** Se um campo não for encontrado ou se a informação for ambígua, retorne `None` para aquele campo específico. Não tente adivinhar.
-* **Foco no Conteúdo:** Analise todo o texto extraído do documento para localizar as informações. Ignore elementos de layout, como logos ou tabelas, e foque nos rótulos e nos dados textuais.
-
-**Exemplo de Saída:**
-```
-{
-    "descricao_servico": "Consultoria em TI",
-    "valor_servico": 1500.00,
-    "numero_nf": 123456,
-    "data_emissao": "2023-10-01",
-    "valor_total": 1500.00,
-    "cnpj": "12345678000195"
-}
-```"""
-    EXTRACAO_PROMPT_img = """
-        Você é um agente de IA especialista em processamento de documentos fiscais brasileiros. Sua principal tarefa é analisar o conteúdo de uma Nota Fiscal de Serviço em formato de documento (PDF), extrair informações cruciais e retorná-las em um formato estruturado, de acordo com o modelo Pydantic fornecido.
+    EXTRACAO_PROMPT = """
+        Você é um agente de IA especialista em processamento de documentos fiscais brasileiros. Sua principal tarefa é analisar o conteúdo de uma Nota Fiscal de Serviço em formato de documento (PDF) ou texto extraído de um docuemnto (PDF), extrair informações cruciais e retorná-las em um formato estruturado, de acordo com o modelo Pydantic fornecido.
 
         **Instruções Gerais:**
 
@@ -127,7 +93,7 @@ class AgenteCharla:
 
             return Agent(
                 model=model,
-                system_prompt=PromptManager.EXTRACAO_PROMPT_img,
+                system_prompt=PromptManager.EXTRACAO_PROMPT,
                 output_type=ExtracaoOutput
             )
         except Exception as e:
@@ -139,12 +105,12 @@ class AgenteCharla:
         return self._agent
 
     async def extrair_dados_txt(self, conteudo: str) -> ExtracaoOutput:
-        """Extrai dados de uma nota fiscal."""
+        """Extrai dados a partir de texto extraído da nota fiscal."""
         resultado = await self.agent.run(conteudo)
         return resultado.output
     
     async def extrair_dados_img(self, conteudo: str) -> ExtracaoOutput:
-        """Extrai dados de uma nota fiscal."""
+        """Extrai dados de um arquivo PDF da nota fiscal."""
         resultado = await self.agent.run(
             [BinaryContent(conteudo, media_type='application/pdf')]
         )
