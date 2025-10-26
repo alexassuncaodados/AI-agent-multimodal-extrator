@@ -1,4 +1,3 @@
-# Importações necessárias
 import asyncio
 from utils.Agente import AI_agente_extrator
 from utils.pdf_to_img_to_text import extrair_texto_de_pdf_scaneado
@@ -38,11 +37,7 @@ def main_sync():
             print(f"\n--- Processando arquivo {i}/{len(arquivos_pdf)}: {arquivo_pdf.name} ---")
             
             try:
-                # # Faz a extração de dados do PDF
-                # arquivobyte = arquivo_pdf.read_bytes()
-                # resultado = await agent.run(
-                #     [BinaryContent(arquivobyte, media_type='application/pdf')]
-                # )
+                # Extrai texto do PDF usando OCR
                 arquivo = extrair_texto_de_pdf_scaneado(arquivo_pdf)
                 # print(arquivo)
                 resultado = await agent.extrair_dados_txt(arquivo)

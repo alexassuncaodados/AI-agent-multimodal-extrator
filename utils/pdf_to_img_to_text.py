@@ -18,7 +18,7 @@ poppler_path = os.path.join(PROJECT_ROOT, "poppler-25.07.0", "Library", "bin")
 
 
 
-def extrair_texto_de_pdf_scaneado(caminho_pdf, idioma='por'):
+def extrair_texto_de_pdf_scaneado(caminho_pdf: str, idioma='por')-> str:
     """
     Extrai texto de um PDF scaneado usando OCR (Tesseract).
 
@@ -31,8 +31,6 @@ def extrair_texto_de_pdf_scaneado(caminho_pdf, idioma='por'):
     """
     
     # 1. Converter PDF para uma lista de imagens (objetos PIL)
-    # No Windows, você pode precisar especificar o caminho do Poppler:
-    # imagens = convert_from_path(caminho_pdf, poppler_path=r'C:\caminho\para\poppler\bin')
     try:
         imagens = convert_from_bytes(open(caminho_pdf, 'rb').read(), poppler_path=poppler_path, dpi=300)
     except Exception as e:
@@ -48,10 +46,6 @@ def extrair_texto_de_pdf_scaneado(caminho_pdf, idioma='por'):
     for i, imagem in enumerate(imagens):
         print(f"Processando página {i+1}...")
         
-        # Salvar temporariamente a imagem (opcional, mas às vezes ajuda na depuração)
-        # nome_arquivo_img = f"pagina_{i}.png"
-        # imagem.save(nome_arquivo_img, 'PNG')
-
         # 3. Usar pytesseract para extrair o texto da imagem
         try:
             texto = pytesseract.image_to_string(imagem, lang=idioma)
@@ -65,6 +59,7 @@ def extrair_texto_de_pdf_scaneado(caminho_pdf, idioma='por'):
             print(f"Erro no Tesseract na página {i+1}: {e}")
 
     print("Processamento concluído.")
+    # 4. Retornar o texto completo exraído das páginas do PDF
     return texto_completo
 
 

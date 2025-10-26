@@ -1,14 +1,14 @@
-
 # PydanticAI - Framework principal para IA
 pydantic-ai>=0.0.12
+
+# Pydantic - Validação de dados
+pydantic>=2.0.0
+
+# Gerenciamento de variáveis de ambiente
+python-dotenv>=1.0.0
 
 # OCR e processamento de imagens
 pdf2image>=1.17.0
 pytesseract>=0.3.10
 
-# Pydantic - Validação de dados
-pydantic>=2.0.0
 
-
-# Gerenciamento de variáveis de ambiente
-python-dotenv>=1.0.0

@@ -1,19 +1,25 @@
 import os
 from typing import Optional
 from dotenv import load_dotenv
+
+#importa pydantic-ai Agent
 from pydantic_ai import Agent
+
+#importa pydantic-ai BinaryContent para tratamento de arquivos binários
+from pydantic_ai import BinaryContent
+
+# Importa o modelo e o provedor do Google Gemini no pydantic-ai
 from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.providers.google import GoogleProvider
 
-
-from pydantic_ai import BinaryContent
-
+# Importa os modelos de dados de saída
 from utils.BaseModel import ExtracaoOutput
+
 
 
 class AgenteConfig:
     """Gerencia configurações do agente."""
-
+    # Modelo padrão do Google Gemini
     DEFAULT_MODEL = 'gemini-2.5-flash'
     # DEFAULT_MODEL = 'gemini-2.0-flash-lite'
 
@@ -109,7 +115,7 @@ class AI_agente_extrator:
         resultado = await self.agent.run(conteudo)
         return resultado.output.model_dump_json()
     
-    async def extrair_dados_img(self, conteudo: str) -> ExtracaoOutput:
+    async def extrair_dados_pdf(self, conteudo: str) -> ExtracaoOutput:
         """Extrai dados de um arquivo PDF da nota fiscal."""
         resultado = await self.agent.run(
             [BinaryContent(conteudo, media_type='application/pdf')]
