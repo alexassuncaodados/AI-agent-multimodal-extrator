@@ -15,7 +15,7 @@ Agente de IA para extração de dados de arquivos PDF. Utiliza duas abordagens: 
 - Como exemplo é feito a extração de dados de Notas Fiscais de Serviço (NFSe)
 - Duas abordagens de processamento:
   - **OCR**: Conversão de PDF para imagem e extração de texto via Tesseract
-  - **PDF Direto**: Envio do arquivo PDF diretamente ao agente de IA
+  - **Input de Documento**: Envio do arquivo PDF diretamente ao agente de IA
 - Estruturação de dados extraídos em formato JSON
 
 ## Estrutura do Projeto
