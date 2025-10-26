@@ -79,6 +79,9 @@ O agente extrai os seguintes campos de cada nota fiscal:
 - `valor_total`: Valor total da nota
 - `cnpj`: CNPJ do prestador (apenas números)
 
+#### 💻 Notebook com exemplos
+[Exemplos de uso do agente de IA usando OCR e input de PDF](https://github.com/alexassuncaodados/AI-agent-multimodal-extrator/blob/main/app.ipynb)
+
 ## Roadmap
 
 - [x] **Extrator de Dados**: Agente de IA para extração de dados de notas fiscais
@@ -97,11 +100,9 @@ api_key=sua-chave-api-google
 TESSERACT_PATH=/caminho/para/tesseract
 ```
 
-## Licença
 
-MIT License - veja LICENSE para detalhes
-
-## Autor
-
-Alex Assunção
+## Autor Alex Silva de Assunção
+- [LinkedIn](https://www.linkedin.com/in/alexassuncaodata/)- [GitHub](https://github.com/alexassuncaodados)
+## Contato
+- Email: [alexassuncao.dados@email.com](mailto:alexassuncao.dados@email.com)
 
