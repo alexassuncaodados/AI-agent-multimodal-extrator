@@ -18,6 +18,9 @@ Agente de IA para extração de dados de arquivos PDF. Utiliza duas abordagens: 
   - **Input de Documento**: Envio do arquivo PDF diretamente ao agente de IA
 - Estruturação de dados extraídos em formato JSON
 
+#### 💻 Notebook com exemplos
+[Exemplos de uso do agente de IA usando OCR e input de PDF](https://github.com/alexassuncaodados/AI-agent-multimodal-extrator/blob/main/app.ipynb)
+
 ## Estrutura do Projeto
 
 ```
