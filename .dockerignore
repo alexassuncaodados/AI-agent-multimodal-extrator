@@ -1,0 +1,11 @@
+# Ignorar ambiente virtual e arquivos desnecessários
+
+.venv/
+
+__pycache__/
+
+*.pyc
+
+*.pyo
+
+*.log

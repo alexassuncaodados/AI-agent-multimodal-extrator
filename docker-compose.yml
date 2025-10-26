@@ -1,0 +1,13 @@
+services:
+
+  charla_nfse_extrator-app:
+
+    build: .
+
+    volumes:
+
+      - .:/app
+
+    working_dir: /app
+
+    command: python app.py
