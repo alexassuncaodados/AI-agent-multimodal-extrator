@@ -1,4 +1,4 @@
-# AI Agente Multimodal Extrator
+# AI Agent Multimodal Extrator
 
 Agente de IA para extração de dados de arquivos PDF. Utiliza duas abordagens: OCR para PDFs scaneados e envio direto de PDF ao agente de IA.
 
