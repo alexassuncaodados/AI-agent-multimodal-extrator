@@ -1,10 +1,20 @@
 from pdf2image import convert_from_bytes
 import pytesseract
-# Tesseract no Windows
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-# Poppler (no Windows)
-poppler_path = r"C:\Users\Alex\Documents\code\GIT\Case_Charla_Jr_AI_Eng\poppler-25.07.0\Library\bin"
+# Carrega variáveis de ambiente do arquivo .env
+load_dotenv()
+
+# Obtém o diretório raiz do projeto
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+# Configuração do Tesseract OCR
+pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH')
+
+# Configuração do Poppler
+poppler_path = os.path.join(PROJECT_ROOT, "poppler-25.07.0", "Library", "bin")
 
 
 

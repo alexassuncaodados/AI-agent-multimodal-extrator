@@ -1,7 +1,6 @@
 # Importações necessárias
 import asyncio
-from utils.agente_oo import AgenteCharla
-# from utils.AgenteCharla import criar_agente_charla
+from utils.Agente import AI_agente_extrator
 from utils.pdf_to_img_to_text import extrair_texto_de_pdf_scaneado
 
 from pathlib import Path
@@ -11,7 +10,7 @@ from pathlib import Path
 def main_sync():
     # Inicialização do agente de IA
     try:
-        agent = AgenteCharla()
+        agent = AI_agente_extrator()
         print("Agente criado com sucesso!")
     except Exception as e:
         print(f"Erro ao criar agente: {e}")
@@ -46,16 +45,16 @@ def main_sync():
                 # )
                 arquivo = extrair_texto_de_pdf_scaneado(arquivo_pdf)
                 # print(arquivo)
-                resultado = await agent.extrair_dados(arquivo)
+                resultado = await agent.extrair_dados_txt(arquivo)
                 
                 # Exibe o resultado no console
                 print("Resultado extraído:")
-                print(resultado.model_dump())
+                print(resultado)
                 
                 # Adiciona à lista de resultados
                 resultados.append({
                     'arquivo': arquivo_pdf.name,
-                    'dados': resultado.model_dump()
+                    'dados': resultado
                 })
                 
             except Exception as e:

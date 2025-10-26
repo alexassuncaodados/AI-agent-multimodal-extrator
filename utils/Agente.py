@@ -11,11 +11,11 @@ from pydantic_ai import BinaryContent
 from utils.BaseModel import ExtracaoOutput
 
 
-class AgenteCharlaConfig:
+class AgenteConfig:
     """Gerencia configurações do agente."""
 
-    # DEFAULT_MODEL = 'gemini-2.5-flash'
-    DEFAULT_MODEL = 'gemini-2.0-flash-lite'
+    DEFAULT_MODEL = 'gemini-2.5-flash'
+    # DEFAULT_MODEL = 'gemini-2.0-flash-lite'
 
     def __init__(
         self,
@@ -75,11 +75,11 @@ class PromptManager:
         """
 
 
-class AgenteCharla:
+class AI_agente_extrator:
     """Agente de IA para extração de notas fiscais."""
 
-    def __init__(self, config: Optional[AgenteCharlaConfig] = None):
-        self.config = config or AgenteCharlaConfig()
+    def __init__(self, config: Optional[AgenteConfig] = None):
+        self.config = config or AgenteConfig()
         self._agent = self._inicializar_agente()
 
     def _inicializar_agente(self) -> Agent:
@@ -107,11 +107,11 @@ class AgenteCharla:
     async def extrair_dados_txt(self, conteudo: str) -> ExtracaoOutput:
         """Extrai dados a partir de texto extraído da nota fiscal."""
         resultado = await self.agent.run(conteudo)
-        return resultado.output
+        return resultado.output.model_dump_json()
     
     async def extrair_dados_img(self, conteudo: str) -> ExtracaoOutput:
         """Extrai dados de um arquivo PDF da nota fiscal."""
         resultado = await self.agent.run(
             [BinaryContent(conteudo, media_type='application/pdf')]
         )
-        return resultado.output
+        return resultado.output.model_dump_json()
