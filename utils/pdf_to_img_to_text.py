@@ -18,7 +18,9 @@ poppler_path = os.path.join(PROJECT_ROOT, "poppler-25.07.0", "Library", "bin")
 
 
 
-def extrair_texto_de_pdf_scaneado(caminho_pdf: str, idioma='por')-> str:
+from typing import Union
+
+def extrair_texto_de_pdf_scaneado(caminho_pdf: Union[str, bytes], idioma='por')-> str:
     """
     Extrai texto de um PDF scaneado usando OCR (Tesseract).
 
@@ -32,7 +34,12 @@ def extrair_texto_de_pdf_scaneado(caminho_pdf: str, idioma='por')-> str:
     
     # 1. Converter PDF para uma lista de imagens (objetos PIL)
     try:
-        imagens = convert_from_bytes(open(caminho_pdf, 'rb').read(), poppler_path=poppler_path, dpi=300)
+        if isinstance(caminho_pdf, bytes):
+            pdf_bytes = caminho_pdf
+        else:
+            pdf_bytes = open(caminho_pdf, 'rb').read()
+            
+        imagens = convert_from_bytes(pdf_bytes, poppler_path=poppler_path, dpi=300)
     except Exception as e:
         print(f"Erro ao converter PDF. Verifique se o Poppler está instalado e no PATH.")
         print(f"Erro: {e}")

@@ -8,6 +8,8 @@ Agente de IA para extração de dados de arquivos PDF. Utiliza duas abordagens: 
 - Pydantic
 - Tesseract OCR
 - Poppler
+- FastAPI
+- Uvicorn
 
 
 ## Funcionalidades
@@ -17,6 +19,7 @@ Agente de IA para extração de dados de arquivos PDF. Utiliza duas abordagens: 
   - **OCR**: Conversão de PDF para imagem e extração de texto via Tesseract
   - **Input de Documento**: Envio do arquivo PDF diretamente ao agente de IA
 - Estruturação de dados extraídos em formato JSON
+- **API REST**: Endpoints para integração e processamento de arquivos
 
 #### 💻 Notebook com exemplos
 [Exemplos de uso do agente de IA usando OCR e input de PDF](https://github.com/alexassuncaodados/AI-agent-multimodal-extrator/blob/main/app.ipynb)
@@ -25,6 +28,7 @@ Agente de IA para extração de dados de arquivos PDF. Utiliza duas abordagens: 
 
 ```
 .
+├── api.py                      # API FastAPI
 ├── app.py                      # Script de execução simples
 ├── app.ipynb                   # Notebook com exemplos
 ├── utils/
@@ -57,7 +61,28 @@ cp .env.example .env
 
 ## Uso
 
-### Execução Local
+### Execução da API
+
+Para iniciar o servidor da API:
+
+```bash
+uvicorn api:app --reload
+```
+
+A API estará disponível em `http://localhost:8000`.
+
+#### Endpoints Disponíveis
+
+- `GET /`: Verifica se a API está rodando.
+- `POST /extract/ocr`: Extrai dados de um PDF escaneado usando OCR.
+  - **Input**: Arquivo PDF (`UploadFile`)
+  - **Output**: JSON com os dados extraídos.
+- `POST /extract/direct`: Extrai dados enviando o PDF diretamente para o agente.
+  - **Input**: Arquivo PDF (`UploadFile`)
+  - **Output**: JSON com os dados extraídos.
+
+
+### Execução Local (Script Simples)
 
 ```bash
 python app.py
@@ -89,7 +114,7 @@ O agente extrai os seguintes campos de cada nota fiscal:
 
 - [x] **Extrator de Dados**: Agente de IA para extração de dados de notas fiscais
 - [ ] **Validação de Documento**: Verifica se o documento é uma nota fiscal
-- [ ] **API REST** (FastAPI): Endpoints para processamento de PDFs
+- [x] **API REST** (FastAPI): Endpoints para processamento de PDFs
 - [ ] **Dashboard**: Interface web para envio e análise de arquivos
 - [x] **Dockerização**: Imagem Docker para fácil implantação
 
