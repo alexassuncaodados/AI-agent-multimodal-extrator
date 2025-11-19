@@ -132,5 +132,5 @@ TESSERACT_PATH=/caminho/para/tesseract
 ## Autor Alex Silva de Assunção
 - [LinkedIn](https://www.linkedin.com/in/alexassuncaodata/)- [GitHub](https://github.com/alexassuncaodados)
 ## Contato
-- Email: [alexassuncao.dados@email.com](mailto:alexassuncao.dados@email.com)
+- Email: [alexassuncao.dados@gmail.com](mailto:alexassuncao.dados@gmail.com)
 
